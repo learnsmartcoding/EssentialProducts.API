@@ -1,0 +1,10 @@
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Core\bin\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Core.deps.json
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Core\bin\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Core.dll
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Core\bin\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Core.pdb
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Core\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Core.csproj.AssemblyReference.cache
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Core\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Core\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Core.AssemblyInfoInputs.cache
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Core\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Core.AssemblyInfo.cs
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Core\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Core.csproj.CoreCompileInputs.cache
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Core\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Core.dll
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Core\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Core.pdb

@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "96a49339-a3b2-43dc-bc6a-1ec9f83dba98": {
+      "ProjectGuid": "96a49339-a3b2-43dc-bc6a-1ec9f83dba98",
+      "DisplayName": "LearnSmartCoding.EssentialProducts.API",
+      "ColorIndex": 0
+    },
+    "1756b1f4-2106-46f2-a297-c94aafc2b39b": {
+      "ProjectGuid": "1756b1f4-2106-46f2-a297-c94aafc2b39b",
+      "DisplayName": "LearnSmartCoding.EssentialProducts.Core",
+      "ColorIndex": 1
+    },
+    "521b355a-69d6-4cac-ac9e-eeb163e9a208": {
+      "ProjectGuid": "521b355a-69d6-4cac-ac9e-eeb163e9a208",
+      "DisplayName": "LearnSmartCoding.EssentialProducts.Data",
+      "ColorIndex": 2
+    },
+    "c97833e1-ca9b-4707-a197-9319c249beca": {
+      "ProjectGuid": "c97833e1-ca9b-4707-a197-9319c249beca",
+      "DisplayName": "LearnSmartCoding.EssentialProducts.Service",
+      "ColorIndex": 3
+    }
+  },
+  "NextColorIndex": 4
+}

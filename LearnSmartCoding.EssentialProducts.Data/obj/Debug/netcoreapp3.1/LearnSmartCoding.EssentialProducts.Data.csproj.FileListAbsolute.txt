@@ -1,0 +1,16 @@
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\bin\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.deps.json
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\bin\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.dll
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\bin\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.pdb
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\bin\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Core.dll
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\bin\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Core.pdb
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.csproj.AssemblyReference.cache
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.AssemblyInfoInputs.cache
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.AssemblyInfo.cs
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.csproj.CoreCompileInputs.cache
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.csproj.CopyComplete
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.dll
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.pdb
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\bin\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.runtimeconfig.json
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\bin\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.runtimeconfig.dev.json
+C:\Users\karth\source\repos\Github\EssentialProducts.API\LearnSmartCoding.EssentialProducts.Data\obj\Debug\netcoreapp3.1\LearnSmartCoding.EssentialProducts.Data.genruntimeconfig.cache
