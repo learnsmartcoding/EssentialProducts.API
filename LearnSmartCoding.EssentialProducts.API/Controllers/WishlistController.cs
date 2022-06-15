@@ -37,10 +37,8 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         [HttpGet("all", Name = "GetWishlists")]
         [ProducesResponseType(typeof(List<WishlistItemViewModel>), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetWishlistItemsAsync()
-        {
-            //var adObjectId = httpContextAccessor.HttpContext.User.GetObjectId();
-            //var userName = httpContextAccessor.HttpContext.User.GetNameIdentifierId();
-            var adObjName = "Admin";//adObjectId ?? "Admin";
+        {           
+            var adObjName = "Admin";
             Logger.LogInformation($"Executing {nameof(GetWishlistItemsAsync)}");
 
             var wishlists = await wishlistService.GetWishlistItemsAsync(adObjName);
@@ -63,11 +61,7 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         [ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PostWishlistAsync([FromBody] CreateWishlistItem createWishlistItem)
         {
-            Logger.LogInformation($"Executing {nameof(PostWishlistAsync)}");
-            //var adObjectId = httpContextAccessor.HttpContext.User.GetObjectId();
-            //var userName = httpContextAccessor.HttpContext.User.GetNameIdentifierId();
-
-            
+            Logger.LogInformation($"Executing {nameof(PostWishlistAsync)}");            
             var wishListInDB = await wishlistService.GetWishlistItemAsync("Admin",
                 createWishlistItem.ProductId);
 
@@ -93,10 +87,6 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         [HttpDelete("{id}", Name = "DeleteWishlist")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        //[Authorize]
-        //[AuthorizeForScopes(Scopes = new string[] {
-        //    "https://learnsmartcoding.onmicrosoft.com/api/product.write"
-        //})]
         public async Task<IActionResult> DeleteWishlistAsync([FromRoute] long id)
         {
 
