@@ -32,7 +32,8 @@ namespace LearnSmartCoding.EssentialProducts.API
         {
             services.AddDbContextPool<EssentialProductsDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DbContext"));
+                options.UseSqlServer(Configuration.GetConnectionString("DbContext")); //Use this option for real database
+                //options.UseInMemoryDatabase("EssentialProducts"); // use this option and comment the other one if you want in memory database. Everytime you run app, the data is cleared.
             });
 
             services.AddScoped<IProductRepository, ProductRepository>();
