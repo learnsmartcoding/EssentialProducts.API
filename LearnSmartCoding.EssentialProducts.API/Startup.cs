@@ -80,6 +80,7 @@ namespace LearnSmartCoding.EssentialProducts.API
                    }
             );
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
+            services.AddApplicationInsightsTelemetry(Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
