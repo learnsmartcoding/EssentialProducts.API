@@ -3,10 +3,12 @@ using LearnSmartCoding.EssentialProducts.API.ViewModel.Get;
 using LearnSmartCoding.EssentialProducts.API.ViewModel.Update;
 using LearnSmartCoding.EssentialProducts.Core;
 using LearnSmartCoding.EssentialProducts.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +20,8 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+    [RequiredScope("categories.read")]
     public class CategoryController : ControllerBase
     {
         public CategoryController(ILogger<CategoryController> logger,
@@ -33,6 +37,8 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         [HttpGet("{id}", Name = "GetCategory")]
         [ProducesResponseType(typeof(CategoryViewModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(NotFoundResult), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetCategoryAsync([FromRoute] short id)
         {
             Logger.LogInformation($"Executing {nameof(GetCategoryAsync)}");
@@ -50,11 +56,13 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
 
         [HttpGet("All", Name = "GetAllCategory")]
         [ProducesResponseType(typeof(List<CategoryViewModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> GetAllCategoryAsync()
         {
             Logger.LogInformation($"Executing {nameof(GetCategoryAsync)}");
 
-            var categories = await CategoryService.GetCategorysAsync();
+            var categories = await CategoryService.GetCategoriesAsync();
 
             var categoriesModel = categories.Select(s => new CategoryViewModel() { Id = s.Id, IsActive = s.IsActive, Name = s.Name }).ToList();
 
@@ -65,7 +73,9 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
 
         [HttpPost("", Name = "PostCategory")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]       
+        [ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> PostCategoryAsync([FromBody] CreateCategory createCategory)
         {
             Logger.LogInformation($"Executing {nameof(PostCategoryAsync)}");
@@ -79,23 +89,18 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         }
 
 
-        [HttpPut("{id}", Name = "PutCategory")]
+        [HttpPut("", Name = "PutCategory")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]        
-        public async Task<IActionResult> PutCategoryAsync([FromRoute] short id, [FromBody] UpdateCategory updateCategory)
+        [ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status403Forbidden)]
+        public async Task<IActionResult> PutCategoryAsync([FromBody] UpdateCategory updateCategory)
         {
-            //TODO: add valdation to check id in route and id from model are same. if not return 400 bad request
-
             Logger.LogInformation($"Executing {nameof(PutCategoryAsync)}");
-            var category = await CategoryService.GetCategoryAsync(id);
 
-            if (category == null)
-                return NotFound();
+            var entity = new Category() { Id = updateCategory.Id, IsActive = updateCategory.IsActive, Name = updateCategory.Name };
 
-            category.IsActive = updateCategory.IsActive;
-            category.Name = updateCategory.Name;            
-
-            await CategoryService.UpdateCategoryAsync(category);
+            await CategoryService.UpdateCategoryAsync(entity);
 
             return Ok();
         }
@@ -103,7 +108,9 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
 
         [HttpDelete("{id}", Name = "DeleteCategory")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]        
+        [ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> DeleteCategoryAsync([FromRoute] short id)
         {
             Logger.LogInformation($"Executing {nameof(DeleteCategoryAsync)}");

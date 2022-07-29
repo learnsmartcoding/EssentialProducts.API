@@ -1,20 +1,17 @@
+using LearnSmartCoding.EssentialProducts.API.AuthorizationPolicies;
 using LearnSmartCoding.EssentialProducts.Data;
 using LearnSmartCoding.EssentialProducts.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.Identity.Web;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LearnSmartCoding.EssentialProducts.API
 {
@@ -30,10 +27,19 @@ namespace LearnSmartCoding.EssentialProducts.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                  .AddMicrosoftIdentityWebApi(options =>
+                  {
+                      Configuration.Bind("AzureAdB2C", options);
+
+                      options.TokenValidationParameters.NameClaimType = "name";
+                  },
+          options => { Configuration.Bind("AzureAdB2C", options); });
+
             services.AddDbContextPool<EssentialProductsDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DbContext")); //Use this option for real database
-                //options.UseInMemoryDatabase("EssentialProducts"); // use this option and comment the other one if you want in memory database. Everytime you run app, the data is cleared.
+                //options.UseSqlServer(Configuration.GetConnectionString("DbContext")); //Use this option for real database
+                options.UseInMemoryDatabase("EssentialProducts"); // use this option and comment the other one if you want in memory database. Everytime you run app, the data is cleared.
             });
 
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -46,14 +52,48 @@ namespace LearnSmartCoding.EssentialProducts.API
 
             services.AddControllers();
 
-            // Allowing CORS for all domains and methods for the purpose of the sample
-            // In production, modify this with the actual domains you want to allow
-            services.AddCors(o => o.AddPolicy("default", builder =>
+            //if you want to deploy to server, here server address will come.//E.g. https://lsc-essential-products-web.azurewebsites.net/
+            services.AddCors(options =>
             {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            }));
+                options.AddPolicy("AllRequests", builder =>
+                {
+                    builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .SetIsOriginAllowed(
+                        origin => origin == "http://localhost:4200")
+                    .AllowCredentials();
+                });
+            });
+
+            services.AddAuthorization(options =>
+            {
+                // Create policy to check for the scope 'read'
+                options.AddPolicy("ProductReadScope",
+                    policy => policy.Requirements.Add(
+                        new ScopesRequirement(
+                            "https://learnsmartcoding.onmicrosoft.com/essentialproducts/api/products.read"))
+                    );
+
+                // check for write
+                options.AddPolicy("ProductWriteScope",
+                    policy => policy.Requirements.Add(
+                        new ScopesRequirement(
+                            "https://learnsmartcoding.onmicrosoft.com/essentialproducts/api/products.write"))
+                    );
+                // Create policy to check for the scope 'read'
+                options.AddPolicy("categoriesReadScope",
+                    policy => policy.Requirements.Add(
+                        new ScopesRequirement(
+                            "https://learnsmartcoding.onmicrosoft.com/essentialproducts/api/categories.read"))
+                    );
+
+                // check for write
+                options.AddPolicy("categoriesWriteScope",
+                    policy => policy.Requirements.Add(
+                        new ScopesRequirement(
+                            "https://learnsmartcoding.onmicrosoft.com/essentialproducts/api/categories.write"))
+                    );
+            });
 
 
             services.AddSwaggerGen(
@@ -102,8 +142,8 @@ namespace LearnSmartCoding.EssentialProducts.API
 
             app.UseRouting();
 
-            //app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

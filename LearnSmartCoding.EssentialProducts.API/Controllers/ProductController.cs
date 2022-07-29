@@ -3,9 +3,11 @@ using LearnSmartCoding.EssentialProducts.API.ViewModel.Get;
 using LearnSmartCoding.EssentialProducts.API.ViewModel.Update;
 using LearnSmartCoding.EssentialProducts.Core;
 using LearnSmartCoding.EssentialProducts.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Identity.Web;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,6 +33,12 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         [HttpGet("", Name = "GetProducts")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(List<ProductViewModel>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status403Forbidden)]
+        [Authorize]
+        [AuthorizeForScopes(Scopes = new string[] {
+            "https://learnsmartcoding.onmicrosoft.com/essentialproducts/api/products.read"
+        })]
         public async Task<ActionResult> Get()
         {
             var products = await productService.GetProductsAsync();
@@ -62,6 +70,12 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ProductViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status403Forbidden)]
+        [Authorize]
+        [AuthorizeForScopes(Scopes = new string[] {
+            "https://learnsmartcoding.onmicrosoft.com/essentialproducts/api/products.read"
+        })]
         public async Task<ActionResult> Get(int id)
         {
             var product = await productService.GetProductAndImagesAsync(id);
@@ -97,6 +111,12 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         [HttpPost("", Name = "CreateProduct")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status403Forbidden)]
+        [Authorize]
+        [AuthorizeForScopes(Scopes = new string[] {
+            "https://learnsmartcoding.onmicrosoft.com/essentialproducts/api/products.write"
+        })]
         public async Task<IActionResult> Post([FromBody] CreateProduct createProduct)
         {
             var entityToAdd = new Product()
@@ -121,6 +141,12 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status403Forbidden)]
+        [Authorize]
+        [AuthorizeForScopes(Scopes = new string[] {
+            "https://learnsmartcoding.onmicrosoft.com/essentialproducts/api/products.write"
+        })]
         public async Task<IActionResult> Put(int id, [FromBody] UpdateProduct updateProduct)
         {
             var entityToupdate = await productService.GetProductAsync(updateProduct.Id);
@@ -143,6 +169,12 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status403Forbidden)]
+        [Authorize]
+        [AuthorizeForScopes(Scopes = new string[] {
+            "https://learnsmartcoding.onmicrosoft.com/essentialproducts/api/products.write"
+        })]
         public async Task<IActionResult> Delete(int id)
         {
             var product = await productService.GetProductAsync(id);
@@ -156,6 +188,12 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         [HttpPost("upload/{id}", Name = "UploadProductImage")]
         [ProducesResponseType(typeof(int),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status403Forbidden)]
+        [Authorize]
+        [AuthorizeForScopes(Scopes = new string[] {
+            "https://learnsmartcoding.onmicrosoft.com/essentialproducts/api/products.write"
+        })]
         public async Task<IActionResult> UploadProductImageAsync(IFormFile file, [FromRoute] int id)
         {
             if (!IsValidFile(file))
