@@ -26,5 +26,9 @@
     <ProjectReference Include="..\LearnSmartCoding.EssentialProducts.Service\LearnSmartCoding.EssentialProducts.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\ServiceDependencies\" />
+  </ItemGroup>
+
 
 </Project>
