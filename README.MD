@@ -14,6 +14,9 @@ The topics mentioned below are covered in this course.
 9. CRUD implementation for various endpoints, like getting, POST, PUT, DELETE
 10. And more options for expanding this app to have Authentication and Authorization.
 
+
+CI/CD has been setup for this project in Azure devops.
+
 Complete source code: 
 https://github.com/learnsmartcoding/EssentialProducts.API
 
@@ -33,3 +36,4 @@ Please post your questions in the comment section and I will be happy to answer 
 Subscribe for more useful videos just like this: https://www.youtube.com/channel/UCKUxSY2xp12QiP3c60sOc-g?sub_confirmation=1
 
 Happy coding!
+
