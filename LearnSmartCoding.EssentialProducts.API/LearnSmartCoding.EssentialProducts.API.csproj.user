@@ -7,5 +7,6 @@
     <ActiveDebugProfile>LearnSmartCoding.EssentialProducts.API</ActiveDebugProfile>
     <Controller_SelectedScaffolderID>ApiControllerWithActionsScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
+    <NameOfLastUsedPublishProfile>C:\Users\vijil\repos\Karthik\learnsmartcoding\EssentialProducts.API\LearnSmartCoding.EssentialProducts.API\Properties\PublishProfiles\essentialproducts-api - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
