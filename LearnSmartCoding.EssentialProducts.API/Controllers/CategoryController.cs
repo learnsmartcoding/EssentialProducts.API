@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.Resource;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -62,7 +63,7 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         {
             Logger.LogInformation($"Executing {nameof(GetCategoryAsync)}");
 
-            var categories = await CategoryService.GetCategoriesAsync();
+            var categories = await CategoryService.GetCategorysAsync();
 
             var categoriesModel = categories.Select(s => new CategoryViewModel() { Id = s.Id, IsActive = s.IsActive, Name = s.Name }).ToList();
 
