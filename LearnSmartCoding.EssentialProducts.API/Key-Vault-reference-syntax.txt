@@ -18,3 +18,8 @@ See https://docs.microsoft.com/en-us/azure/app-service/app-service-key-vault-ref
 
 ---- latest version
 @Microsoft.KeyVault(VaultName=kv-web-apps;SecretName=MyColor)
+
+
+@Microsoft.KeyVault(SecretUri=https://kv-lsc-demo.vault.azure.net/secrets/SecretNumber/59100d3a7bd5410fbd33de12f1b47358)
+
+@Microsoft.KeyVault(SecretUri=https://kv-lsc-demo.vault.azure.net/secrets/EssentialProductDbContext/6d978af9d81244fa84fd359e9b1a0f51)
