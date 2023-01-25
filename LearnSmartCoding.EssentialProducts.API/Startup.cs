@@ -1,20 +1,15 @@
+using LearnSmartCoding.EssentialProducts.API.Common.Filters;
 using LearnSmartCoding.EssentialProducts.Data;
 using LearnSmartCoding.EssentialProducts.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LearnSmartCoding.EssentialProducts.API
 {
@@ -44,7 +39,10 @@ namespace LearnSmartCoding.EssentialProducts.API
             services.AddScoped<IWishlistItemService, WishlistItemService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(typeof(HttpGlobalExceptionFilter));
+            });
 
             // Allowing CORS for all domains and methods for the purpose of the sample
             // In production, modify this with the actual domains you want to allow
