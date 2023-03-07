@@ -19,5 +19,6 @@ namespace LearnSmartCoding.EssentialProducts.Data
         public DbSet<ProductImage> ProductImage { get; set; }
         public DbSet<ProductOwner> ProductOwner { get; set; }
         public DbSet<WishlistItem> WishlistItem { get; set; }
+        public DbSet<AppSettings> AppSettings { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 using LearnSmartCoding.EssentialProducts.API.Common.Filters;
 using LearnSmartCoding.EssentialProducts.Data;
+using LearnSmartCoding.EssentialProducts.Data.BGService;
 using LearnSmartCoding.EssentialProducts.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,8 @@ namespace LearnSmartCoding.EssentialProducts.API
             services.AddScoped<IWishlistRepository, WishlistRepository>();
             services.AddScoped<IWishlistItemService, WishlistItemService>();
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddHostedService<ProductPriceChangerBGService>();
 
             services.AddControllers(options =>
             {
