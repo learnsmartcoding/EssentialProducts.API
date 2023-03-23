@@ -1,5 +1,6 @@
 ﻿using LearnSmartCoding.EssentialProducts.API.ViewModel.Create;
 using LearnSmartCoding.EssentialProducts.Service;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -8,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace LearnSmartCoding.EssentialProducts.API.ViewModel.Update
 {
+    public class UpdateProductAndImage: UpdateProduct
+    {
+        public IFormFile Image { get; set; }
+    }
     public class UpdateProduct : CreateProduct
     {
         public override async Task<IEnumerable<ValidationResult>> ValidateAsync(

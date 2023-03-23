@@ -116,28 +116,28 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
             return new CreatedAtRouteResult("Get", new { id = createdProduct.Id });
         }
 
-        // PUT api/<ProductController>/5
-        [HttpPut("{id}", Name = "UpdateProduct")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Put(int id, [FromBody] UpdateProduct updateProduct)
-        {
-            var entityToupdate = await productService.GetProductAsync(updateProduct.Id);
+        //// PUT api/<ProductController>/5
+        //[HttpPut("{id}", Name = "UpdateProduct")]
+        //[ProducesResponseType(StatusCodes.Status200OK)]
+        //[ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        //[ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        //public async Task<IActionResult> Put(int id, [FromBody] UpdateProduct updateProduct)
+        //{
+        //    var entityToupdate = await productService.GetProductAsync(updateProduct.Id);
 
-            entityToupdate.Name = updateProduct.Name;
-            entityToupdate.AvailableSince = updateProduct.AvailableSince;
-            entityToupdate.CategoryId = updateProduct.CategoryId;
-            entityToupdate.ModifiedDate = DateTime.Now;
-            entityToupdate.ModifiedBy = "Admin";
-            entityToupdate.Descriptions = updateProduct.Descriptions;
-            entityToupdate.IsActive = updateProduct.IsActive;
-            entityToupdate.Price = updateProduct.Price;
+        //    entityToupdate.Name = updateProduct.Name;
+        //    entityToupdate.AvailableSince = updateProduct.AvailableSince;
+        //    entityToupdate.CategoryId = updateProduct.CategoryId;
+        //    entityToupdate.ModifiedDate = DateTime.Now;
+        //    entityToupdate.ModifiedBy = "Admin";
+        //    entityToupdate.Descriptions = updateProduct.Descriptions;
+        //    entityToupdate.IsActive = updateProduct.IsActive;
+        //    entityToupdate.Price = updateProduct.Price;
 
 
-            var updatedProduct = await productService.UpdateProductAsync(entityToupdate);
-            return Ok();
-        }
+        //    var updatedProduct = await productService.UpdateProductAsync(entityToupdate);
+        //    return Ok();
+        //}
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
@@ -179,6 +179,44 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
             List<string> validFormats = new List<string>() { ".jpg", ".png", ".svg", ".jpeg" };
             var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
             return validFormats.Contains(extension);
+        }
+
+        // PUT api/<ProductController>/5
+        [HttpPut("{id}", Name = "UpdateProductWithImage")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ModelStateDictionary), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateProductWithImage(int id, [FromForm] UpdateProductAndImage updateProduct)
+        {
+            if (!IsValidFile(updateProduct.Image))
+            {
+                return BadRequest(new { message = "Invalid file extensions" });
+            }
+
+            byte[] fileBytes = null;
+            using (var stream = new MemoryStream())
+            {
+                await updateProduct.Image.CopyToAsync(stream);
+                fileBytes = stream.ToArray();
+            }
+
+            var productImage = await productService.CreateProductImageAsync(fileBytes, id, updateProduct.Image.FileName,
+                updateProduct.Image.ContentType);
+
+            var entityToupdate = await productService.GetProductAsync(updateProduct.Id);
+
+            entityToupdate.Name = updateProduct.Name;
+            entityToupdate.AvailableSince = updateProduct.AvailableSince;
+            entityToupdate.CategoryId = updateProduct.CategoryId;
+            entityToupdate.ModifiedDate = DateTime.Now;
+            entityToupdate.ModifiedBy = "Admin";
+            entityToupdate.Descriptions = updateProduct.Descriptions;
+            entityToupdate.IsActive = updateProduct.IsActive;
+            entityToupdate.Price = updateProduct.Price;
+
+
+            var updatedProduct = await productService.UpdateProductAsync(entityToupdate);
+            return Ok();
         }
     }
 }
