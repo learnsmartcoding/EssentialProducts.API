@@ -53,6 +53,7 @@ namespace LearnSmartCoding.EssentialProducts.API
                        .AllowAnyHeader();
             }));
 
+            services.AddMemoryCache();
 
             services.AddSwaggerGen(
                    options =>

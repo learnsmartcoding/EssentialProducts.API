@@ -6,6 +6,7 @@ using LearnSmartCoding.EssentialProducts.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,10 +22,12 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService productService;
+        private readonly IMemoryCache memoryCache;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService, IMemoryCache memoryCache)
         {
             this.productService = productService;
+            this.memoryCache = memoryCache;
         }
 
         // GET: api/<ProductController>
@@ -33,7 +36,19 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         [ProducesResponseType(typeof(List<ProductViewModel>), StatusCodes.Status200OK)]
         public async Task<ActionResult> Get()
         {
-            var products = await productService.GetProductsAsync();
+            string cacheKey = "allProducts";
+            List<Product> products;           
+
+            if (!memoryCache.TryGetValue(cacheKey, out products))
+            {
+                // If the data is not in the cache, retrieve it and add it to the cache
+                products = await productService.GetProductsAsync();
+                var cacheEntryOptions = new MemoryCacheEntryOptions()
+                .SetSlidingExpiration(TimeSpan.FromSeconds(10));
+                memoryCache.Set(cacheKey, products, cacheEntryOptions);
+            }
+
+               
             var models = products.Select(product => new ProductViewModel()
             {
                 AvailableSince = product.AvailableSince,
