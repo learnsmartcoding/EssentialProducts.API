@@ -44,7 +44,7 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
                 // If the data is not in the cache, retrieve it and add it to the cache
                 products = await productService.GetProductsAsync();
                 var cacheEntryOptions = new MemoryCacheEntryOptions()
-                .SetSlidingExpiration(TimeSpan.FromSeconds(10));
+                .SetSlidingExpiration(TimeSpan.FromMinutes(10));
                 memoryCache.Set(cacheKey, products, cacheEntryOptions);
             }
 
@@ -79,9 +79,24 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         [ProducesResponseType(typeof(ProductViewModel), StatusCodes.Status200OK)]
         public async Task<ActionResult> Get(int id)
         {
-            var product = await productService.GetProductAndImagesAsync(id);
-            if (product == null)
-                return NotFound();
+            var cacheKey = $"product-{id}";
+            Product product;
+
+            if (!memoryCache.TryGetValue(cacheKey, out product))
+            {
+                // If the data is not in the cache, retrieve it and add it to the cache
+                product = await productService.GetProductAndImagesAsync(id);
+
+                if (product == null)
+                    return NotFound();
+                else
+                {
+                    var cacheEntryOptions = new MemoryCacheEntryOptions()
+                    .SetSlidingExpiration(TimeSpan.FromMinutes(10));
+                    memoryCache.Set(cacheKey, product, cacheEntryOptions);
+                }
+            }            
+    
 
             var model = new ProductViewModel()
             {
