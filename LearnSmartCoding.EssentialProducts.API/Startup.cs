@@ -1,14 +1,7 @@
 using LearnSmartCoding.EssentialProducts.API.Common.Filters;
 using LearnSmartCoding.EssentialProducts.Data;
 using LearnSmartCoding.EssentialProducts.Service;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
 namespace LearnSmartCoding.EssentialProducts.API
@@ -77,8 +70,8 @@ namespace LearnSmartCoding.EssentialProducts.API
                        });
                    }
             );
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
-            services.AddApplicationInsightsTelemetry(Configuration["APPLICATIONINSIGHTS_CONNECTION_STRING"]);
+            
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
