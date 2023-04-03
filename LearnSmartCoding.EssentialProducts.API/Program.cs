@@ -11,17 +11,17 @@ namespace LearnSmartCoding.EssentialProducts.API
         {
             var name = typeof(Program).Assembly.GetName().Name;
 
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-                .Enrich.FromLogContext()
-                .Enrich.WithMachineName()
-                .Enrich.WithProperty("Assembly", name)
-                // available sinks: https://github.com/serilog/serilog/wiki/Provided-Sinks
-                // Seq: https://datalust.co/seq
-                // Seq with Docker: https://docs.datalust.co/docs/getting-started-with-docker
-                .WriteTo.Seq(serverUrl: "https://localhost:5001")
-                .WriteTo.Console()
-                .CreateLogger();
+            //Log.Logger = new LoggerConfiguration()
+            //    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+            //    .Enrich.FromLogContext()
+            //    .Enrich.WithMachineName()
+            //    .Enrich.WithProperty("Assembly", name)
+            //    // available sinks: https://github.com/serilog/serilog/wiki/Provided-Sinks
+            //    // Seq: https://datalust.co/seq
+            //    // Seq with Docker: https://docs.datalust.co/docs/getting-started-with-docker
+            //    .WriteTo.Seq(serverUrl: "https://localhost:5001")
+            //    .WriteTo.Console()
+            //    .CreateLogger();
 
             try
             {
@@ -42,7 +42,7 @@ namespace LearnSmartCoding.EssentialProducts.API
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                //.UseSerilog()
+                .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

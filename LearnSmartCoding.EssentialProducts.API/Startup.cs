@@ -4,6 +4,8 @@ using LearnSmartCoding.EssentialProducts.Data;
 using LearnSmartCoding.EssentialProducts.Service;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Serilog;
+using Serilog.Events;
 
 namespace LearnSmartCoding.EssentialProducts.API
 {
@@ -114,6 +116,20 @@ namespace LearnSmartCoding.EssentialProducts.API
             {
                 c.SwaggerEndpoint("v1/swagger.json", "Learn Smart Coding - EssentialProducts API V1");
             });
+
+            var name = typeof(Program).Assembly.GetName().Name;
+            // Configure Serilog
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .MinimumLevel.Override("System", LogEventLevel.Warning)
+                .Enrich.FromLogContext()
+                .Enrich.WithMachineName()
+                .Enrich.WithProperty("Assembly", name)
+                .WriteTo.Console()
+                .ReadFrom.Configuration(Configuration)
+                .CreateLogger();
+            app.UseSerilogRequestLogging();
+
         }
     }
 }
