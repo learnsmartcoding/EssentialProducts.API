@@ -1,3 +1,4 @@
+using LearnSmartCoding.EssentialProducts.API.Common;
 using LearnSmartCoding.EssentialProducts.API.Common.Filters;
 using LearnSmartCoding.EssentialProducts.Data;
 using LearnSmartCoding.EssentialProducts.Service;
@@ -92,6 +93,8 @@ namespace LearnSmartCoding.EssentialProducts.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCustomRequestLogging();
 
             //app.UseAuthentication();
             //app.UseAuthorization();

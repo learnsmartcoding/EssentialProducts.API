@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,6 +54,8 @@ namespace LearnSmartCoding.EssentialProducts.API.Controllers
         public async Task<IActionResult> GetAllCategoryAsync()
         {
             Logger.LogInformation($"Executing {nameof(GetCategoryAsync)}");
+            Log.ForContext("Category", "GetAllCategory")
+              .Information("Starting controller action GetAllCategory");
 
             var categories = await CategoryService.GetCategorysAsync();
 
