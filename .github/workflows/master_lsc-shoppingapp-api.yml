@@ -51,4 +51,4 @@ jobs:
           app-name: 'lsc-shoppingapp-api'
           slot-name: 'Production'
           publish-profile: "${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9F9E32DF25CC460C854539A60F7BFA6C }}"
-          package: ${{ github.workspace }}/.net-app
+          package: ${{ github.workspace }}/.net-app/**
