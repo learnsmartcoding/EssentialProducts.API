@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy ASP.Net Core app to Azure Web App - lsc-shoppingapp-api
 
 on:
@@ -23,10 +20,10 @@ jobs:
           include-prerelease: true
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release LearnSmartCoding.EssentialProducts.API/LearnSmartCoding.EssentialProducts.API.csproj
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp LearnSmartCoding.EssentialProducts.API/LearnSmartCoding.EssentialProducts.API.csproj
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -53,5 +50,5 @@ jobs:
         with:
           app-name: 'lsc-shoppingapp-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9F9E32DF25CC460C854539A60F7BFA6C }}
-          package: .
+          publish-profile: "${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9F9E32DF25CC460C854539A60F7BFA6C }}"
+          package: ${{ github.workspace }}/.net-app
